@@ -24,8 +24,8 @@
             <td><c:out value = "${contact.firstName}" /></td>
             <td><c:out value = "${contact.lastName}" /></td>
             <td><c:out value = "${contact.phoneNumber}" /></td>
-            <td><c:out value = "${numAddresses > 0 ? contact.addresses[0].type : \"no\"}" /></td>
-            <td><c:out value = "${numAddresses > 1 ? contact.addresses[1].type : \"no\"}" /></td>
+            <td><c:out value = "${numAddresses > 0 ? contact.addresses[0].combinedAddress : \"N/A\"}" /></td>
+            <td><c:out value = "${numAddresses > 1 ? contact.addresses[1].combinedAddress : \"N/A\"}" /></td>
         </tr>
     </c:forEach>
     </table>
@@ -34,6 +34,7 @@
     <div class="p-3">
         <h5 class="display-5">Add New Contact</h5>
         <br /><hr />
+        <p class="text-danger"><c:out value="${error}" /></p>
         <form action="${pageContext.request.contextPath}/" method="post">
             <div class="form-row align-items-center">
                 <div class="col-auto">
@@ -98,8 +99,8 @@
                 <div class="col-auto">
                     <label class="sr-only" for="type2">Type</label>
                     <select name="type2" id="type2" class="form-control">
-                        <option selected value="Home">Home</option>
-                        <option value="Business">Business</option>
+                        <option value="Home">Home</option>
+                        <option selected value="Business">Business</option>
                     </select>
                 </div>
                 <div class="col-auto">

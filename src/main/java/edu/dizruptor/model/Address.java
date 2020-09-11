@@ -11,20 +11,22 @@ public class Address implements Serializable {
 	private String postalCode;
 	private String country;
 
+	private String combinedAddress;
+
 	public String getType() {
 		return type;
 	}
 
-	public void setType(String address1) {
-		this.type = address1;
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	public String getAddress() {
 		return address;
 	}
 
-	public void setAddress(String address2) {
-		this.address = address2;
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 	public String getCity() {
@@ -58,7 +60,10 @@ public class Address implements Serializable {
 	public void setCountry(String country) {
 		this.country = country;
 	}
-	
+
+	public String getCombinedAddress() { return combinedAddress; }
+
+	public void setCombinedAddress(String combinedAddress) { this.combinedAddress = combinedAddress; }
 	
 	public Address(String type, String address, String city, String state, String postalCode,
 			String country) {
@@ -69,6 +74,7 @@ public class Address implements Serializable {
 		this.state = state;
 		this.postalCode = postalCode;
 		this.country = country;
+		this.combinedAddress = type + ": " + address + ", " + city + ", " + state + ", " + postalCode + ", " + country;
 	}
 
 	// no arg constructor required for bean

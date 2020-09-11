@@ -17,12 +17,11 @@ import edu.dizruptor.model.Contact;
 public class MyFirstServlet extends HttpServlet
 {
 
+	// static variables
 	private static List<Contact> contacts = new ArrayList<>();
+	private static String error = "";
 
-//	static {
-//		contacts.add(new Contact());
-//	}
-
+	// get list of contacts
 	protected List<Contact> getContacts() {
 		return contacts;
 	}
@@ -30,22 +29,10 @@ public class MyFirstServlet extends HttpServlet
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-//		Contact contact = new Contact(
-//				"Kali",
-//				"Winn",
-//				"111-111-1111",
-//				new Address("1310 wattup", "ogden", "utah", "84403", "USA")
-//		);
-//		contacts.add(contact);
-//		Contact contact2 = new Contact(
-//				"Justin",
-//				"Edwards",
-//				"222-222-3333",
-//				new Address("4239 Monroe Blvd", "ogden", "utah", "84403", "USA")
-//		);
-//		contacts.add(contact2);
-		
+		// set attributes
 		req.setAttribute("contacts", getContacts());
+		req.setAttribute("error", error);
+		// connection to jsp
 		req.getRequestDispatcher("/jsp/index.jsp").forward(req, resp);
 	}
 
@@ -72,32 +59,33 @@ public class MyFirstServlet extends HttpServlet
 		String state2 = req.getParameter("state2");
 		String postal2 = req.getParameter("postal2");
 		String country2 = req.getParameter("country2");
-		System.out.println(type1);
 		// personal info validation
-		if (firstName == null || lastName == null || phoneNumber == null) {
-			req.setAttribute("error", "Personal Info Can't Be Empty");
+		if (firstName.equals("") || lastName.equals("") || phoneNumber.equals("")) {
+			error = "Personal Info Can't Be Empty";	// set error message
 		}
 		// address 1 validation
-		else if (type1 == null || address1 == null || city1 == null ||
-		state1 == null || postal1 == null || country1 == null) {
-			req.setAttribute("error", "Address 1 Can't Be Empty");
+		else if (type1.equals("") || address1.equals("") || city1.equals("") ||
+		state1.equals("") || postal1.equals("") || country1.equals("")) {
+			error = "Address 1 Can't Be Empty";	// set error message
 		}
 		// validated
 		else {
-			System.out.println("here");
-			List<Address> tempAddresses = new ArrayList<>();
+
+			error = "";	// reset error
+			List<Address> tempAddresses = new ArrayList<>();	// temp list of addresses
+			// store first address
 			tempAddresses.add(new Address(type1, address1, city1, state1, postal1, country1));
+			// check for second address
+			if (!(type2.equals("") || address2.equals("") || city2.equals("") ||
+					state2.equals("") || postal2.equals("") || country2.equals(""))) {
+				// add second address
+				tempAddresses.add(new Address(type2, address2, city2, state2, postal2, country2));
+			}
+			// add contact with list of addresses
 			contacts.add(new Contact(firstName, lastName, phoneNumber, tempAddresses));
 		}
-
-
-
+		// update jsp
 		this.doGet(req, resp);
-//		req.getRequestDispatcher("/jsp/index.jsp").forward(req, resp);
-	}
-
-	protected void addContact() {
-		System.out.println("testing");
 	}
 
 
