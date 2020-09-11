@@ -11,19 +11,19 @@ public class Address implements Serializable {
 	private String postalCode;
 	private String country;
 
-	public String getAddressLine1() {
+	public String getType() {
 		return type;
 	}
 
-	public void setAddressLine1(String address1) {
+	public void setType(String address1) {
 		this.type = address1;
 	}
 
-	public String getAddressLine2() {
+	public String getAddress() {
 		return address;
 	}
 
-	public void setAddressLine2(String address2) {
+	public void setAddress(String address2) {
 		this.address = address2;
 	}
 
@@ -69,10 +69,6 @@ public class Address implements Serializable {
 		this.state = state;
 		this.postalCode = postalCode;
 		this.country = country;
-	}
-	
-	public Address(String address1, String city, String state, String postalCode, String country) {
-		this(address1, null, city, state, postalCode, country);
 	}
 
 	// no arg constructor required for bean

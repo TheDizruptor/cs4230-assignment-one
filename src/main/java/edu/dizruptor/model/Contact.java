@@ -43,12 +43,12 @@ public class Contact implements Serializable {
 		this.addresses = addresses;
 	}
 
-	public Contact(String firstName, String lastName, String phoneNumber, Address address) {
+	public Contact(String firstName, String lastName, String phoneNumber, List<Address> addresses) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.phoneNumber = phoneNumber;
-		this.addresses = new ArrayList<>();
+		this.addresses = addresses;
 	}
 
 	// no arg constructor required for bean
