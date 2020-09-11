@@ -1,5 +1,7 @@
 package edu.dizruptor.model;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 // java bean for Contact
 public class Contact implements Serializable {
@@ -7,7 +9,7 @@ public class Contact implements Serializable {
 	private String firstName;
 	private String lastName;
 	private String phoneNumber;
-	private Address address;
+	private List<Address> addresses;
 
 	public String getFirstName() {
 		return firstName;
@@ -33,12 +35,12 @@ public class Contact implements Serializable {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public Address getAddress() {
-		return address;
+	public List<Address> getAddresses() {
+		return addresses;
 	}
 
-	public void setAddress(Address address) {
-		this.address = address;
+	public void setAddresses(List<Address> addresses) {
+		this.addresses = addresses;
 	}
 
 	public Contact(String firstName, String lastName, String phoneNumber, Address address) {
@@ -46,7 +48,7 @@ public class Contact implements Serializable {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.phoneNumber = phoneNumber;
-		this.address = address;
+		this.addresses = new ArrayList<>();
 	}
 
 	// no arg constructor required for bean

@@ -4,27 +4,27 @@ import java.io.Serializable;
 // java bean for Address
 public class Address implements Serializable {
 
-	private String address1;
-	private String address2;
+	private String type;
+	private String address;
 	private String city;
 	private String state;
 	private String postalCode;
 	private String country;
 
 	public String getAddressLine1() {
-		return address1;
+		return type;
 	}
 
 	public void setAddressLine1(String address1) {
-		this.address1 = address1;
+		this.type = address1;
 	}
 
 	public String getAddressLine2() {
-		return address2;
+		return address;
 	}
 
 	public void setAddressLine2(String address2) {
-		this.address2 = address2;
+		this.address = address2;
 	}
 
 	public String getCity() {
@@ -60,11 +60,11 @@ public class Address implements Serializable {
 	}
 	
 	
-	public Address(String address1, String address2, String city, String state, String postalCode,
+	public Address(String type, String address, String city, String state, String postalCode,
 			String country) {
 		super();
-		this.address1 = address1;
-		this.address2 = address2;
+		this.type = type;
+		this.address = address;
 		this.city = city;
 		this.state = state;
 		this.postalCode = postalCode;
