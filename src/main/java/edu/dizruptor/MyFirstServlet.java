@@ -60,12 +60,12 @@ public class MyFirstServlet extends HttpServlet
 		String postal2 = req.getParameter("postal2");
 		String country2 = req.getParameter("country2");
 		// personal info validation
-		if (firstName.equals("") || lastName.equals("") || phoneNumber.equals("")) {
+		if (firstName == null || lastName == null || phoneNumber == null) {
 			error = "Personal Info Can't Be Empty";	// set error message
 		}
 		// address 1 validation
-		else if (type1.equals("") || address1.equals("") || city1.equals("") ||
-		state1.equals("") || postal1.equals("") || country1.equals("")) {
+		else if (type1 == null || address1 == null || city1 == null ||
+		state1 == null || postal1 == null || country1 == null) {
 			error = "Address 1 Can't Be Empty";	// set error message
 		}
 		// validated
@@ -76,8 +76,8 @@ public class MyFirstServlet extends HttpServlet
 			// store first address
 			tempAddresses.add(new Address(type1, address1, city1, state1, postal1, country1));
 			// check for second address
-			if (!(type2.equals("") || address2.equals("") || city2.equals("") ||
-					state2.equals("") || postal2.equals("") || country2.equals(""))) {
+			if (!(type2 == null || address2 == null || city2 == null ||
+					state2 == null || postal2 == null || country2 == null)) {
 				// add second address
 				tempAddresses.add(new Address(type2, address2, city2, state2, postal2, country2));
 			}
