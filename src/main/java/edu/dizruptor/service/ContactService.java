@@ -2,7 +2,6 @@ package edu.dizruptor.service;
 import java.util.*;
 
 import edu.dizruptor.dao.ContactDAO;
-import edu.dizruptor.model.Address;
 import edu.dizruptor.model.Contact;
 
 public class ContactService {

@@ -1,12 +1,9 @@
 package edu.dizruptor;
 
 import edu.dizruptor.dao.ContactDAO;
-import edu.dizruptor.dao.DatabaseConnection;
-import edu.dizruptor.dao.FlywayListener;
 import edu.dizruptor.model.Address;
 import edu.dizruptor.model.Contact;
 import edu.dizruptor.service.ContactService;
-import net.bytebuddy.dynamic.scaffold.MethodRegistry;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,16 +13,15 @@ import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.sql.DataSource;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 
@@ -69,7 +65,7 @@ public class AppTest {
     public void testConstructorsAndAddContact() {
 
         MyFirstServlet firstServlet = Mockito.mock(MyFirstServlet.class);
-        ArrayList<Contact> contacts = new ArrayList<>();
+        List<Contact> contacts = new ArrayList<>();
         Mockito.when(firstServlet.getContacts()).thenReturn(contacts);
 
         // check servlet initially has no contacts
@@ -199,6 +195,16 @@ public class AppTest {
         contact.setId("ID");
 
         Assert.assertEquals(contact, contactDAO.recordContact(contact));
+    }
+
+    @Test
+    public void testContactEqualsMethod() {
+        Contact contact1 = new Contact("Justin", "Edwards", "2084038421", Mockito.mock(ArrayList.class));
+        Contact contact2 = new Contact("Justin", "Edwards", "2084038421", Mockito.mock(ArrayList.class));
+        Contact contact3 = new Contact("Justin", "Edwards", "2084038423", Mockito.mock(ArrayList.class));
+        Assert.assertEquals(contact1, contact2);
+        Assert.assertNotEquals(contact1, contact3);
+
     }
 
 

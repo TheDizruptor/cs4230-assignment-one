@@ -1,8 +1,6 @@
 package edu.dizruptor;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,12 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.dizruptor.model.Address;
 import edu.dizruptor.model.Contact;
 import edu.dizruptor.model.Contacts;
-import edu.dizruptor.service.ContactService;
 
 @WebServlet(name="MyFirstServlet", urlPatterns="/")
 public class MyFirstServlet extends HttpServlet
@@ -90,8 +85,18 @@ public class MyFirstServlet extends HttpServlet
 				// add second address
 				tempAddresses.add(new Address(type2, address2, city2, state2, postal2, country2));
 			}
-			// add contact with list of addresses
-			contacts.addContact(new Contact(firstName, lastName, phoneNumber, tempAddresses));
+
+			// make contact
+			Contact contact = new Contact(firstName, lastName, phoneNumber, tempAddresses);
+			// check if contact already exists in list (using overriden equals method)
+			if (contacts.getContacts().contains(contact)) {
+				error = "Contact already exists";
+				System.out.println("already exists");
+			} else {
+				// add contact with list of addresses
+				contacts.addContact(new Contact(firstName, lastName, phoneNumber, tempAddresses));
+			}
+
 		}
 		// update jsp
 		req.setAttribute("contacts", getContacts());

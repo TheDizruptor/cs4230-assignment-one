@@ -2,7 +2,6 @@ package edu.dizruptor.model;
 
 import edu.dizruptor.dao.ContactDAO;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Contacts {

@@ -1,5 +1,6 @@
 package edu.dizruptor.model;
 import java.io.Serializable;
+import java.util.Objects;
 
 // java bean for Address
 public class Address implements Serializable {
@@ -90,5 +91,5 @@ public class Address implements Serializable {
 	public Address() {
 		this(null, null, null, null, null, null);
 	}
-	
+
 }
