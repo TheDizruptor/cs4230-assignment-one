@@ -12,18 +12,22 @@ import javax.servlet.http.HttpServletResponse;
 
 import edu.dizruptor.model.Address;
 import edu.dizruptor.model.Contact;
+import edu.dizruptor.model.Contacts;
 
 @WebServlet(name="MyFirstServlet", urlPatterns="/")
 public class MyFirstServlet extends HttpServlet
 {
 
-	// static variables
-	private static List<Contact> contacts = new ArrayList<>();
-	private static String error = "";
+
+
+	// data model
+	private static Contacts contacts = new Contacts();
+//	private static List<Contact> contacts = new ArrayList<>();
+//	private static String error = "";
 
 	// get list of contacts
 	protected List<Contact> getContacts() {
-		return contacts;
+		return contacts.getContacts();
 	}
 
 	@Override
@@ -31,7 +35,7 @@ public class MyFirstServlet extends HttpServlet
 
 		// set attributes
 		req.setAttribute("contacts", getContacts());
-		req.setAttribute("error", error);
+//		req.setAttribute("error", error);
 		// connection to jsp
 		req.getRequestDispatcher("/jsp/index.jsp").forward(req, resp);
 	}
@@ -40,6 +44,8 @@ public class MyFirstServlet extends HttpServlet
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		// GET ALL FORM INPUTS FROM JSP //
+
+		String error = "";
 
 		// personal info
 		String firstName = req.getParameter("fname");
@@ -86,10 +92,13 @@ public class MyFirstServlet extends HttpServlet
 				tempAddresses.add(new Address(type2, address2, city2, state2, postal2, country2));
 			}
 			// add contact with list of addresses
-			contacts.add(new Contact(firstName, lastName, phoneNumber, tempAddresses));
+			contacts.addContact(new Contact(firstName, lastName, phoneNumber, tempAddresses));
 		}
 		// update jsp
-		this.doGet(req, resp);
+//		this.doGet(req, resp);
+		req.setAttribute("contacts", getContacts());
+		req.setAttribute("error", error);
+		req.getRequestDispatcher("/jsp/index.jsp").forward(req, resp);
 	}
 
 

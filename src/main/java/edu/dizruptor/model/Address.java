@@ -4,6 +4,7 @@ import java.io.Serializable;
 // java bean for Address
 public class Address implements Serializable {
 
+	private String id;
 	private String type;
 	private String address;
 	private String city;
@@ -12,6 +13,10 @@ public class Address implements Serializable {
 	private String country;
 
 	private String combinedAddress;
+
+	public String getId() { return id; }
+
+	public void setId(String id) { this.id = id; }
 
 	public String getType() {
 		return type;
