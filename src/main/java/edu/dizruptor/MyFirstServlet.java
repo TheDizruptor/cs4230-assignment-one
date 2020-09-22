@@ -45,7 +45,7 @@ public class MyFirstServlet extends HttpServlet
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 //		List<Contact> contacts = contactService.getContacts();
-//
+
 //		ObjectMapper mapper = new ObjectMapper();
 //		resp.setContentType("application/json");
 //		resp.setCharacterEncoding("UTF-8");
@@ -68,6 +68,7 @@ public class MyFirstServlet extends HttpServlet
 //		String body = getRequestBodyAsString(req);
 //		Contact requestContact = mapper.readValue(body, Contact.class);
 //		Contact dbContact = contactService.recordContact(requestContact);
+//		System.out.println(dbContact.toString());
 //		writeObjectToJsonResponse(dbContact, resp);
 
 		String error = "";

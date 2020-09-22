@@ -69,6 +69,10 @@ public class Address implements Serializable {
 	public String getCombinedAddress() { return combinedAddress; }
 
 	public void setCombinedAddress(String combinedAddress) { this.combinedAddress = combinedAddress; }
+
+	public void generateCombinedAddress() {
+		this.combinedAddress = type + ": " + address + ", " + city + ", " + state + ", " + postalCode + ", " + country;
+	}
 	
 	public Address(String type, String address, String city, String state, String postalCode,
 			String country) {

@@ -18,10 +18,14 @@ public class DatabaseConnection {
     public static DataSource getDataSource() {
         if(null == dataSource) {
             MysqlDataSource source = new MysqlDataSource();
-            source.setDatabaseName(System.getenv(MYSQL_DATABASE_KEY));
-            source.setUrl(getMySQLUrl());
-            source.setUser(System.getenv(MYSQL_USER_KEY));
-            source.setPassword(System.getenv(MYSQL_PASSWORD_KEY));
+//            source.setDatabaseName(System.getenv(MYSQL_DATABASE_KEY));
+            source.setDatabaseName("cs4230contacts");
+//            source.setUrl(getMySQLUrl());
+            source.setUrl("jdbc:mysql://localhost:3306/cs4230contacts");
+//            source.setUser(System.getenv(MYSQL_USER_KEY));
+            source.setUser("root");
+//            source.setPassword(System.getenv(MYSQL_PASSWORD_KEY));
+            source.setPassword("password");
             dataSource = source;
             try {
                 dataSource.getConnection().isValid(5);

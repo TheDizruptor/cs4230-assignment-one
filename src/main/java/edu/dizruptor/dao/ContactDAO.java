@@ -99,10 +99,11 @@ public class ContactDAO {
 
                 addressStatement.addBatch();
 
-                if(i % 1000 == 0 || i == contact.getAddresses().size()) {
-                    addressStatement.executeBatch();
-                }
+                System.out.println(addressStatement.toString());
+
             }
+
+            addressStatement.executeBatch();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -114,6 +115,7 @@ public class ContactDAO {
 
     public List<Contact> getContacts() {
         Map<String, Contact> contactMap = new HashMap<>();
+//        System.out.println("testing");
         String sql = "SELECT "
                 + "c.ID as contactId,"
                 + "c.FIRST_NAME as firstName,"
@@ -121,7 +123,7 @@ public class ContactDAO {
                 + "c.PHONE_NUMBER as phoneNumber,"
                 + "a.ID as addressId,"
                 + "a.ADDRESS_TYPE as addressType,"
-                + "a.ADDRESS_LINE as address,"
+                + "a.ADDRESS_LINE as addressLine,"
                 + "a.COUNTRY as country,"
                 + "a.CITY as city,"
                 + "a.STATE as state,"
@@ -133,6 +135,7 @@ public class ContactDAO {
             PreparedStatement contactStatement = db.prepareStatement(sql);
             ResultSet rs = contactStatement.executeQuery();
             while (rs.next()) {
+//                System.out.println(rs.getString("contactId"));
                 String contactId = rs.getString("contactId");
                 Contact contact = contactMap.get(contactId);
                 if(contact != null) {
@@ -144,6 +147,7 @@ public class ContactDAO {
                     contact.setLastName(rs.getString("lastName"));
                     contact.setPhoneNumber(rs.getString("phoneNumber"));
                     contact.addAddress(getAddressFromResultSet(rs));
+                    contact.getAddresses().get(0).generateCombinedAddress();
                     contactMap.put(contactId, contact);
                 }
             }
@@ -151,6 +155,9 @@ public class ContactDAO {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+        ArrayList<Contact> conts = new ArrayList<>(contactMap.values());
+//        System.out.println("test: " + conts.get(0).getAddresses().get(0).getAddress());
+
         return new ArrayList<Contact>(contactMap.values());
 
     }
@@ -165,6 +172,7 @@ public class ContactDAO {
         address.setCity(rs.getString("city"));
         address.setState(rs.getString("state"));
         address.setPostalCode(rs.getString("postalCode"));
+        System.out.println(address.getAddress());
         return address;
     }
 

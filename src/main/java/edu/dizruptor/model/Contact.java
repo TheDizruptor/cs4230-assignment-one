@@ -51,6 +51,9 @@ public class Contact implements Serializable {
 	}
 
 	public void addAddress(Address address) {
+		if (this.addresses == null) {
+			this.addresses = new ArrayList<>();
+		}
 		this.addresses.add(address);
 	}
 
