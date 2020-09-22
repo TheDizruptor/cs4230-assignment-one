@@ -1,6 +1,8 @@
 package edu.dizruptor;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,15 +12,24 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.dizruptor.model.Address;
 import edu.dizruptor.model.Contact;
 import edu.dizruptor.model.Contacts;
+import edu.dizruptor.service.ContactService;
 
 @WebServlet(name="MyFirstServlet", urlPatterns="/")
 public class MyFirstServlet extends HttpServlet
 {
 
+	private ObjectMapper mapper;
+	private ContactService contactService;
 
+	public MyFirstServlet() {
+		this.mapper = new ObjectMapper();
+		this.contactService = new ContactService();
+	}
 
 	// data model
 	private static Contacts contacts = new Contacts();
@@ -33,6 +44,15 @@ public class MyFirstServlet extends HttpServlet
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+//		List<Contact> contacts = contactService.getContacts();
+//
+//		ObjectMapper mapper = new ObjectMapper();
+//		resp.setContentType("application/json");
+//		resp.setCharacterEncoding("UTF-8");
+//		PrintWriter out = resp.getWriter();
+//		out.print(mapper.writeValueAsString(contacts));
+//		out.flush();
+
 		// set attributes
 		req.setAttribute("contacts", getContacts());
 //		req.setAttribute("error", error);
@@ -44,6 +64,11 @@ public class MyFirstServlet extends HttpServlet
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		// GET ALL FORM INPUTS FROM JSP //
+
+//		String body = getRequestBodyAsString(req);
+//		Contact requestContact = mapper.readValue(body, Contact.class);
+//		Contact dbContact = contactService.recordContact(requestContact);
+//		writeObjectToJsonResponse(dbContact, resp);
 
 		String error = "";
 
@@ -99,6 +124,29 @@ public class MyFirstServlet extends HttpServlet
 		req.setAttribute("contacts", getContacts());
 		req.setAttribute("error", error);
 		req.getRequestDispatcher("/jsp/index.jsp").forward(req, resp);
+	}
+
+	private void writeObjectToJsonResponse(Object obj, HttpServletResponse resp) throws IOException {
+		resp.setContentType("application/json");
+		resp.setCharacterEncoding("UTF-8");
+		PrintWriter out = resp.getWriter();
+		try {
+			out.print(mapper.writeValueAsString(obj));
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		out.flush();
+	}
+
+	private String getRequestBodyAsString(HttpServletRequest request) throws IOException {
+		StringBuilder bodyBuilder = new StringBuilder();
+		BufferedReader reader = request.getReader();
+		String line;
+		while ((line = reader.readLine()) != null) {
+			bodyBuilder.append(line);
+		}
+
+		return bodyBuilder.toString();
 	}
 
 

@@ -5,15 +5,14 @@ import javax.sql.DataSource;
 import com.mysql.cj.jdbc.MysqlDataSource;
 
 public class DatabaseConnection {
-    private static final String MYSQL_URL_KEY = "MYSQL_URL";
-    private static final String MYSQL_USER_KEY = "MYSQL_USER";
-    private static final String MYSQL_PASSWORD_KEY = "MYSQL_PASSWORD";
-    private static final String MYSQL_DATABASE_KEY = "MYSQL_DATABASE";
+    private static final String MYSQL_URL_KEY = "jdbc:mysql://localhost:3306/cs4230contacts";
+    private static final String MYSQL_USER_KEY = "root";
+    private static final String MYSQL_PASSWORD_KEY = "password";
+    private static final String MYSQL_DATABASE_KEY = "cs4230contacts";
 
     private static DataSource dataSource;
 
     private DatabaseConnection() {
-
     }
 
     public static DataSource getDataSource() {
