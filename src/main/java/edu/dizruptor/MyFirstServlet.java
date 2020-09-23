@@ -25,10 +25,6 @@ public class MyFirstServlet extends HttpServlet
 		return contacts.getContacts();
 	}
 
-	public static void setContacts(Contacts contacts) {
-		MyFirstServlet.contacts = contacts;
-	}
-
 	public MyFirstServlet() {
 		MyFirstServlet.contacts = new Contacts();
 	}
@@ -103,7 +99,6 @@ public class MyFirstServlet extends HttpServlet
 			// check if contact already exists in list (using overriden equals method)
 			if (contacts.getContacts().contains(contact)) {
 				error = "Contact already exists";
-				System.out.println("already exists");
 			} else {
 				// add contact with list of addresses
 				contacts.addContact(new Contact(firstName, lastName, phoneNumber, tempAddresses));

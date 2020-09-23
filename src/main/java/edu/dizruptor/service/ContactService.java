@@ -30,10 +30,6 @@ public class ContactService {
         return contactDao.getContactByFirstName(firstName);
     }
 
-    public ContactDAO getContactDao() {
-        return contactDao;
-    }
-
     public void setContactDao(ContactDAO contactDao) {
         this.contactDao = contactDao;
     }

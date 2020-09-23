@@ -64,10 +64,6 @@ public class ContactDAO {
         db = connection;
     }
 
-    public void setDb(Connection db) {
-        this.db = db;
-    }
-
     public Contact recordContact(Contact contact) {
         try {
             if(contact.getId() != null) {

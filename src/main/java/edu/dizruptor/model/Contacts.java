@@ -9,11 +9,6 @@ public class Contacts {
     private List<Contact> contacts;
 
     private ContactService contactService = null;
-//    private ContactDAO dbContact = new ContactDAO();
-
-    public void setContactService(ContactService contactService) {
-        this.contactService = contactService;
-    }
 
     public List<Contact> getContacts() {
         return contacts;
@@ -27,6 +22,11 @@ public class Contacts {
     // get contacts from db
     public Contacts() {
         this.contactService = new ContactService();
+        this.contacts = contactService.getContacts();
+    }
+
+    public Contacts(ContactService contactService) {
+        this.contactService = contactService;
         this.contacts = contactService.getContacts();
     }
 
