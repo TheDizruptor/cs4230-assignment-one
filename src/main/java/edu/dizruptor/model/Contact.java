@@ -2,15 +2,23 @@ package edu.dizruptor.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 // java bean for Contact
 public class Contact implements Serializable {
 
+	private String id;
 	private String firstName;
 	private String lastName;
 	private String phoneNumber;
 	private List<Address> addresses;
 
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
 	public String getFirstName() {
 		return firstName;
 	}
@@ -43,6 +51,13 @@ public class Contact implements Serializable {
 		this.addresses = addresses;
 	}
 
+	public void addAddress(Address address) {
+		if (this.addresses == null) {
+			this.addresses = new ArrayList<>();
+		}
+		this.addresses.add(address);
+	}
+
 	public Contact(String firstName, String lastName, String phoneNumber, List<Address> addresses) {
 		super();
 		this.firstName = firstName;
@@ -55,7 +70,19 @@ public class Contact implements Serializable {
 	public Contact() {
 		this(null, null, null, null);
 	}
-	
-	
-	
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Contact contact = (Contact) o;
+		return firstName.equals(contact.firstName) &&
+				lastName.equals(contact.lastName) &&
+				phoneNumber.equals(contact.phoneNumber);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(firstName, lastName, phoneNumber);
+	}
 }

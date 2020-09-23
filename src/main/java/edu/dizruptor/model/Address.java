@@ -1,9 +1,11 @@
 package edu.dizruptor.model;
 import java.io.Serializable;
+import java.util.Objects;
 
 // java bean for Address
 public class Address implements Serializable {
 
+	private String id;
 	private String type;
 	private String address;
 	private String city;
@@ -12,6 +14,10 @@ public class Address implements Serializable {
 	private String country;
 
 	private String combinedAddress;
+
+	public String getId() { return id; }
+
+	public void setId(String id) { this.id = id; }
 
 	public String getType() {
 		return type;
@@ -64,6 +70,10 @@ public class Address implements Serializable {
 	public String getCombinedAddress() { return combinedAddress; }
 
 	public void setCombinedAddress(String combinedAddress) { this.combinedAddress = combinedAddress; }
+
+	public void generateCombinedAddress() {
+		this.combinedAddress = type + ": " + address + ", " + city + ", " + state + ", " + postalCode + ", " + country;
+	}
 	
 	public Address(String type, String address, String city, String state, String postalCode,
 			String country) {
@@ -81,5 +91,5 @@ public class Address implements Serializable {
 	public Address() {
 		this(null, null, null, null, null, null);
 	}
-	
+
 }

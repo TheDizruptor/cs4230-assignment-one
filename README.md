@@ -8,10 +8,9 @@ in the command line. Then, run the following commands:
 
     `mvn clean install`
     
-2. Create the docker container to be run and give it a name (note the period)
+2. Build and run the docker container
 
-    `docker build -t <container-name> .`
+    `docker-compose up`
     
-3. Run the container and map it to port 8080 (doesn't have to be 8080 but needs to be mapped regardless)
+3. Open up localhost:8080 in your browser to see the exciting contacts application!
 
-    `docker run -p 8080:8080 -t <container-name>`
