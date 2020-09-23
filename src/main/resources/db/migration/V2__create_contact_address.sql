@@ -1,5 +1,3 @@
-USE cs4230contacts;
-
 CREATE TABLE CONTACT    (
                             ID VARCHAR(256) NOT NULL PRIMARY KEY,
                             FIRST_NAME VARCHAR(50) NOT NULL,

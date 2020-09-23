@@ -60,6 +60,10 @@ public class ContactDAO {
         }
     }
 
+    public ContactDAO(Connection connection) {
+        db = connection;
+    }
+
     public void setDb(Connection db) {
         this.db = db;
     }

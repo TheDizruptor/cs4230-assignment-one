@@ -18,11 +18,23 @@ import edu.dizruptor.model.Contacts;
 public class MyFirstServlet extends HttpServlet
 {
 	// data model
-	private static Contacts contacts = new Contacts();
+	private static Contacts contacts = null;
 
 	// get list of contacts
 	protected List<Contact> getContacts() {
 		return contacts.getContacts();
+	}
+
+	public static void setContacts(Contacts contacts) {
+		MyFirstServlet.contacts = contacts;
+	}
+
+	public MyFirstServlet() {
+		MyFirstServlet.contacts = new Contacts();
+	}
+
+	public MyFirstServlet(Contacts contacts) {
+		MyFirstServlet.contacts = contacts;
 	}
 
 	@Override

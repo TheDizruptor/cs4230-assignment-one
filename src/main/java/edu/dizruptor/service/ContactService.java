@@ -12,6 +12,10 @@ public class ContactService {
         this.contactDao = new ContactDAO();
     }
 
+    public ContactService(ContactDAO contactDAO) {
+        this.contactDao = contactDAO;
+    }
+
     public List<Contact> getContacts() {
         return contactDao.getContacts();
     }

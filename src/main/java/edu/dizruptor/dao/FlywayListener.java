@@ -13,6 +13,8 @@ public class FlywayListener implements ServletContextListener {
         Flyway flyway = Flyway.configure()
                 .dataSource(DatabaseConnection.getDataSource())
                 .load();
+        System.out.println("Repairing Flyway...");
+        flyway.repair();
         System.out.println("Starting FlyWay Migration");
         flyway.migrate();
         System.out.println("Finished FlyWay Migration");

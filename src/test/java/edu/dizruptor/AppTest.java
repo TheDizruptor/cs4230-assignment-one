@@ -3,6 +3,7 @@ package edu.dizruptor;
 import edu.dizruptor.dao.ContactDAO;
 import edu.dizruptor.model.Address;
 import edu.dizruptor.model.Contact;
+import edu.dizruptor.model.Contacts;
 import edu.dizruptor.service.ContactService;
 import org.junit.Assert;
 import org.junit.Test;
@@ -53,7 +54,7 @@ public class AppTest {
         addresses.add(address);
         Mockito.when(contactDao.getContactByFirstName(ArgumentMatchers.anyString())).thenReturn(new Contact("Justin", "Edwards", "2084038421", addresses));
 
-        ContactService contactService = new ContactService();
+        ContactService contactService = new ContactService(contactDao);
         contactService.setContactDao(contactDao);
         Contact contact = contactService.getContactByFirstName("asdfas");
         Assert.assertTrue( "Justin".equalsIgnoreCase(contact.getFirstName()) );
@@ -125,7 +126,8 @@ public class AppTest {
     // null value
     @Test
     public void testThatPostSetsPersonalInfoError() throws ServletException, IOException {
-        MyFirstServlet firstServlet = new MyFirstServlet();
+        Contacts contacts = Mockito.mock(Contacts.class);
+        MyFirstServlet firstServlet = new MyFirstServlet(contacts);
         // mock request and dispatcher
         HttpServletRequest mockedRequest = Mockito.mock(HttpServletRequest.class);
         RequestDispatcher mockedDispatcher = Mockito.mock(RequestDispatcher.class);
@@ -147,7 +149,8 @@ public class AppTest {
     // tests error set for address when there's a null value
     @Test
     public void testThatPostSetsAddressEmptyError() throws ServletException, IOException {
-        MyFirstServlet firstServlet = new MyFirstServlet();
+        Contacts contacts = Mockito.mock(Contacts.class);
+        MyFirstServlet firstServlet = new MyFirstServlet(contacts);
         // mock request and dispatcher
         HttpServletRequest mockedRequest = Mockito.mock(HttpServletRequest.class);
         RequestDispatcher mockedDispatcher = Mockito.mock(RequestDispatcher.class);
@@ -170,10 +173,10 @@ public class AppTest {
 
     @Test
     public void testThatDAORecordContactWorks() throws SQLException {
-        ContactDAO contactDAO = new ContactDAO();
+
         Connection connection = Mockito.mock(Connection.class);
         Mockito.when(connection.prepareStatement(ArgumentMatchers.anyString())).thenReturn(Mockito.mock(PreparedStatement.class));
-        contactDAO.setDb(connection);
+        ContactDAO contactDAO = new ContactDAO(connection);
         Address address = new Address("Home", "4239 Monroe Blvd", "Ogden", "UT", "84403", "USA");
         ArrayList<Address> addresses = new ArrayList<>();
         addresses.add(address);
@@ -184,10 +187,9 @@ public class AppTest {
 
     @Test
     public void testThatDAORecordContactWithIdWorks() throws SQLException {
-        ContactDAO contactDAO = new ContactDAO();
         Connection connection = Mockito.mock(Connection.class);
         Mockito.when(connection.prepareStatement(ArgumentMatchers.anyString())).thenReturn(Mockito.mock(PreparedStatement.class));
-        contactDAO.setDb(connection);
+        ContactDAO contactDAO = new ContactDAO(connection);
         Address address = new Address("Home", "4239 Monroe Blvd", "Ogden", "UT", "84403", "USA");
         ArrayList<Address> addresses = new ArrayList<>();
         addresses.add(address);
